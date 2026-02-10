@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISO 27001 Informationssicherheit | QM-Guru Akademie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5B21B6;
+            --primary-dark: #4C1D95;
+            --primary-light: #A78BFA;
+            --primary-bg: #F5F3FF;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #2D3748;
+            background: #F7FAFC;
+        }
+        
+        .category-badge {
+            background: var(--primary-bg);
+            color: var(--primary-dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary:hover { background: var(--primary-dark); }
+        
+        .btn-secondary {
+            background: #E2E8F0;
+            color: #4A5568;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-secondary:hover { background: #CBD5E0; }
+        
+        .progress-bar {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        
+        .progress-track {
+            height: 8px;
+            background: #E2E8F0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .module {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .module.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .highlight-box {
+            background: var(--primary-bg);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+        
+        .highlight-box.warning {
+            background: #FFFAF0;
+            border-left-color: #DD6B20;
+        }
+        
+        .highlight-box.success {
+            background: #F0FFF4;
+            border-left-color: #38A169;
+        }
+        
+        .highlight-box.danger {
+            background: #FFF5F5;
+            border-left-color: #E53E3E;
+        }
+        
+        .icon-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .icon-list li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .icon-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .icon-list.cross li::before {
+            content: "✗";
+            color: #E53E3E;
+        }
+        
+        .toc {
+            display: grid;
+            gap: 0.5rem;
+        }
+        
+        .toc-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem;
+            background: #F7FAFC;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .toc-number {
+            width: 26px;
+            height: 26px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+        
+        .quiz-question {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .quiz-question h3 { margin-bottom: 1rem; color: #2D3748; }
+        
+        .quiz-options { display: grid; gap: 0.75rem; }
+        
+        .quiz-option {
+            padding: 1rem;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .quiz-option:hover {
+            border-color: var(--primary-light);
+            background: var(--primary-bg);
+        }
+        
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background: var(--primary-bg);
+        }
+        
+        .quiz-option.correct {
+            border-color: #38A169;
+            background: #F0FFF4;
+        }
+        
+        .quiz-option.incorrect {
+            border-color: #E53E3E;
+            background: #FFF5F5;
+        }
+        
+        .result-container { text-align: center; padding: 3rem; }
+        
+        .result-score {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .result-passed { color: #38A169; }
+        .result-failed { color: #E53E3E; }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #E2E8F0;
+        }
+        
+        .form-group { margin-bottom: 1.5rem; }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .info-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            margin: 1rem 0;
+        }
+        
+        .security-principle {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            margin: 0.75rem 0;
+            border: 1px solid #E2E8F0;
+        }
+        
+        .principle-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-bg);
+            color: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 0.75rem;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            border: 1px solid #E2E8F0;
+        }
+        
+        .checklist-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--primary-bg);
+            color: var(--primary);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        .comparison-table th {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .comparison-table tr:nth-child(even) { background: #F7FAFC; }
+        
+        .code-block {
+            background: #1A202C;
+            color: #E2E8F0;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-table { font-size: 0.85rem; }
+            .comparison-table th, .comparison-table td { padding: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header style="background: white; border-bottom: 1px solid #E2E8F0; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <a href="https://qm-guru.de" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none;">
+            <div style="width: 45px; height: 45px; background: #2B6CB0; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                <span style="color: white; font-weight: 700; font-size: 1.1rem;">QM</span>
+            </div>
+            <div>
+                <div style="font-weight: 600; color: #2D3748;">QM-Guru</div>
+                <div style="font-size: 0.85rem; color: #718096;">Online Akademie</div>
+            </div>
+        </a>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <a href="https://qm-guru-akademie.netlify.app" style="color: #4A5568; text-decoration: none; font-size: 0.95rem;">← Zur Akademie</a>
+        </div>
+    </header>
+
+    <div class="progress-bar">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span class="category-badge">🔒 ISO 27001</span>
+            <span id="progressText">Registrierung</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <main class="container" style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+        
+        <!-- Modul 0: Registrierung -->
+        <div class="module active" id="module0">
+            <h1>🔒 ISO 27001 - Informationssicherheit</h1>
+            <p style="font-size: 1.1rem; color: #718096; margin-top: 0.5rem;">Online-Unterweisung für alle Mitarbeiter</p>
+            
+            <div class="highlight-box">
+                <h3>📋 Schulungsinhalte</h3>
+                <div class="toc">
+                    <div class="toc-item"><span class="toc-number">1</span> Einführung in die Informationssicherheit</div>
+                    <div class="toc-item"><span class="toc-number">2</span> Ihre Rolle und Verantwortung</div>
+                    <div class="toc-item"><span class="toc-number">3</span> Passwörter und Authentisierung</div>
+                    <div class="toc-item"><span class="toc-number">4</span> E-Mail-Sicherheit und Phishing</div>
+                    <div class="toc-item"><span class="toc-number">5</span> Arbeitsplatz und Mobile Geräte</div>
+                    <div class="toc-item"><span class="toc-number">6</span> Datenschutz und Vertraulichkeit</div>
+                    <div class="toc-item"><span class="toc-number">7</span> Sichere Internetnutzung</div>
+                    <div class="toc-item"><span class="toc-number">8</span> Besucher und Social Engineering</div>
+                    <div class="toc-item"><span class="toc-number">9</span> Umgang mit Sicherheitsvorfällen</div>
+                    <div class="toc-item"><span class="toc-number">10</span> Homeoffice und Remote-Arbeit</div>
+                    <div class="toc-item"><span class="toc-number">📝</span> Abschlusstest (33 Fragen)</div>
+                </div>
+            </div>
+            
+            <div style="background: #F0FFF4; padding: 1rem; border-radius: 8px; margin: 1.5rem 0;">
+                <p><strong>⏱️ Dauer:</strong> ca. 45-60 Minuten</p>
+                <p><strong>📝 Abschluss:</strong> 33 Fragen, Bestehen ab 80% (27 richtig)</p>
+                <p><strong>🎓 Zertifikat:</strong> Bei erfolgreichem Abschluss per E-Mail</p>
+                <p><strong>🔄 Auffrischung:</strong> Jährlich</p>
+            </div>
+            
+            <h3>Ihre Daten für das Zertifikat</h3>
+            <div class="form-group">
+                <label for="vorname">Vorname *</label>
+                <input type="text" id="vorname" required>
+            </div>
+            <div class="form-group">
+                <label for="nachname">Nachname *</label>
+                <input type="text" id="nachname" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-Mail-Adresse *</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="firma">Firma (optional)</label>
+                <input type="text" id="firma">
+            </div>
+            
+            <button class="btn-primary" onclick="startCourse()" style="width: 100%; padding: 1rem; font-size: 1.1rem;">
+                Schulung starten
+            </button>
+        </div>
+
+        <!-- Modul 1: Einführung -->
+        <div class="module" id="module1">
+            <h2>Modul 1: Einführung in die Informationssicherheit</h2>
+            
+            <div class="highlight-box">
+                <h3>🎯 Lernziele</h3>
+                <ul class="icon-list">
+                    <li>Die drei Schutzziele der Informationssicherheit verstehen</li>
+                    <li>Bedeutung für den Arbeitsalltag erkennen</li>
+                </ul>
+            </div>
+            
+            <h3>1.1 Was ist Informationssicherheit?</h3>
+            <p>Informationssicherheit schützt drei grundlegende Eigenschaften von Informationen:</p>
+            
+            <div class="security-principle">
+                <div class="principle-icon">🔐</div>
+                <div>
+                    <strong>Vertraulichkeit</strong>
+                    <p style="margin: 0; color: #718096;">Nur autorisierte Personen haben Zugriff auf Informationen.</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;"><em>Beispiel: Kundendaten werden nicht an Unbefugte weitergegeben</em></p>
+                </div>
+            </div>
+            
+            <div class="security-principle">
+                <div class="principle-icon">✓</div>
+                <div>
+                    <strong>Integrität</strong>
+                    <p style="margin: 0; color: #718096;">Informationen sind vollständig und unverändert.</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;"><em>Beispiel: Rechnungen werden nicht manipuliert</em></p>
+                </div>
+            </div>
+            
+            <div class="security-principle">
+                <div class="principle-icon">⚡</div>
+                <div>
+                    <strong>Verfügbarkeit</strong>
+                    <p style="margin: 0; color: #718096;">Informationen sind bei Bedarf zugänglich.</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;"><em>Beispiel: E-Mail-System funktioniert während der Arbeitszeit</em></p>
+                </div>
+            </div>
+            
+            <div class="highlight-box success">
+                <h4>Warum ist das wichtig?</h4>
+                <ul class="icon-list">
+                    <li>Schutz von Geschäftsgeheimnissen</li>
+                    <li>Einhaltung gesetzlicher Vorgaben (DSGVO)</li>
+                    <li>Vertrauen von Kunden und Partnern</li>
+                    <li>Vermeidung finanzieller Schäden</li>
+                </ul>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="prevModule()">← Zurück</button>
+                <button class="btn-primary" onclick="nextModule()">Weiter zu Modul 2 →</button>
+            </div>
+        </div>
+
+        <!-- Modul 2: Verantwortung -->
+        <div class="module" id="module2">
+            <h2>Modul 2: Ihre Rolle und Verantwortung</h2>
+            
+            <h3>2.1 Verantwortlichkeiten aller Mitarbeiter</h3>
+            <p>Jeder Mitarbeiter ist verantwortlich für:</p>
+            
+            <ul class="icon-list">
+                <li>Einhaltung der Informationssicherheitspolitik</li>
+                <li>Schutz von Authentisierungsinformationen (Passwörter, Tokens)</li>
+                <li>Sorgfältiger Umgang mit Unternehmensinformationen</li>
+                <li>Meldung von Sicherheitsvorfällen</li>
+                <li>Teilnahme an Schulungen</li>
+            </ul>
+            
+            <h3>2.2 Was sind Sicherheitsvorfälle?</h3>
+            
+            <div class="highlight-box warning">
+                <h4>Beispiele für Sicherheitsvorfälle:</h4>
+                <ul>
+                    <li>Verlust eines Laptops oder USB-Sticks</li>
+                    <li>Verdacht auf Phishing-E-Mail</li>
+                    <li>Unberechtigter Zugriff auf Systeme</li>
+                    <li>Versehentliches Versenden vertraulicher Daten</li>
+                    <li>Virenbefall oder ungewöhnliches Systemverhalten</li>
+                </ul>
+            </div>
+            
+            <div class="highlight-box danger">
+                <h4>Meldepflicht!</h4>
+                <p>Alle Sicherheitsvorfälle oder Verdachtsfälle sind <strong>unverzüglich</strong> zu melden an:</p>
+                <ul>
+                    <li>Ihren direkten Vorgesetzten</li>
+                    <li>Die IT-Abteilung</li>
+                    <li>Den Informationssicherheitsbeauftragten</li>
+                </ul>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="prevModule()">← Zurück</button>
+                <button class="btn-primary" onclick="nextModule()">Weiter zu Modul 3 →</button>
+            </div>
+        </div>
+
+        <!-- Modul 3: Passwörter -->
+        <div class="module" id="module3">
+            <h2>Modul 3: Passwörter und Authentisierung</h2>
+            
+            <h3>3.1 Sichere Passwörter</h3>
+            
+            <div class="highlight-box">
+                <h4>Anforderungen an Passwörter:</h4>
+                <ul class="icon-list">
+                    <li>Mindestens 12 Zeichen (besser mehr)</li>
+                    <li>Kombination aus Groß-/Kleinbuchstaben, Zahlen, Sonderzeichen</li>
+                    <li>Keine Wörterbuchbegriffe oder persönliche Daten</li>
+                    <li>Für jeden Dienst ein eigenes Passwort</li>
+                </ul>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0;">
+                <div class="highlight-box danger" style="margin: 0;">
+                    <h4>Schlecht:</h4>
+                    <p style="font-family: monospace;">Passwort123!</p>
+                    <p style="font-family: monospace;">Geburtstag2024</p>
+                </div>
+                <div class="highlight-box success" style="margin: 0;">
+                    <h4>Gut (Passphrase):</h4>
+                    <p style="font-family: monospace;">IchEsse5AepfelProTag!</p>
+                </div>
+            </div>
+            
+            <div class="highlight-box danger">
+                <h4>VERBOTEN:</h4>
+                <ul class="icon-list cross">
+                    <li>Passwörter aufschreiben am Arbeitsplatz</li>
+                    <li>Passwörter per E-Mail versenden</li>
+                    <li>Passwörter weitergeben - auch nicht an IT!</li>
+                    <li>Passwörter in unverschlüsselten Dateien speichern</li>
+                </ul>
+            </div>
+            
+            <h3>3.2 Mehr-Faktor-Authentisierung (MFA)</h3>
+            <p>Zusätzliche Sicherheitsebene neben dem Passwort:</p>
+            <ul class="icon-list">
+                <li>SMS-Code oder Authenticator-App</li>
+                <li>Hardware-Token</li>
+                <li>Biometrie (Fingerabdruck, Gesicht)</li>
+            </ul>
+            <p style="margin-top: 1rem;"><strong>Ihre Pflicht:</strong> MFA aktivieren, wo vom Unternehmen vorgeschrieben!</p>
+            
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="prevModule()">← Zurück</button>
+                <button class="btn-primary" onclick="nextModule()">Weiter zu Modul 4 →</button>
+            </div>
+        </div>
+
+        <!-- Modul 4: E-Mail & Phishing -->
+        <div class="module" id="module4">
+            <h2>Modul 4: E-Mail-Sicherheit und Phishing</h2>
+            
+            <h3>4.1 Phishing erkennen</h3>
+            <p>Betrügerische E-Mails, die Sie dazu bringen sollen, Passwörter preiszugeben, Schadsoftware zu installieren oder Geld zu überweisen.</p>
+            
+            <div class="highlight-box warning">
+                <h4>Warnsignale:</h4>
+                <ul>
+                    <li><strong>Dringlichkeit:</strong> "Ihr Konto wird in 24h gesperrt!"</li>
+                    <li><strong>Aufforderung:</strong> "Klicken Sie hier sofort!"</li>
+                    <li><strong>Verdächtige Adresse:</strong> support@ammaz0n.com</li>
+                    <li><strong>Rechtschreibfehler:</strong> "Sehr geehrte Khunde"</li>
+                    <li><strong>Unerwartete Anhänge:</strong> Rechnung.pdf.exe</li>
+                    <li><strong>Unplausible Anfragen:</strong> "CEO braucht 100 iTunes-Karten"</li>
+                </ul>
+            </div>
+            
+            <h3>4.2 Sichere E-Mail-Nutzung</h3>
+            <ul class="icon-list">
+                <li>Keine Links in verdächtigen E-Mails öffnen</li>
+                <li>Keine Anhänge von Unbekannten öffnen</li>
+                <li>Bei Zweifeln: Absender telefonisch verifizieren</li>
+                <li>Vertrauliche Informationen verschlüsseln</li>
+                <li>Vorsicht bei "Antwort an alle"</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <h4>Vor dem Öffnen von Anhängen fragen:</h4>
+                <ol>
+                    <li>Erwarte ich diese E-Mail?</li>
+                    <li>Kenne ich den Absender?</li>
+                    <li>Ist die Absenderadresse korrekt?</li>
+                    <li>Bei Unsicherheit: IT-Abteilung fragen!</li>
+                </ol>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="prevModule()">← Zurück</button>
+                <button class="btn-primary" onclick="nextModule()">Weiter zu Modul 5 →</button>
+            </div>
+        </div>
+
+        <!-- Modul 5: Arbeitsplatz -->
+        <div class="module" id="module5">
+            <h2>Modul 5: Arbeitsplatz und Mobile Geräte</h2>
+            
+            <h3>5.1 Clean Desk Policy</h3>
+            <p><strong>Grundregel:</strong> Ein aufgeräumter Arbeitsplatz ist ein sicherer Arbeitsplatz!</p>
+            
+            <div class="highlight-box">
+                <h4>Beim Verlassen des Arbeitsplatzes:</h4>
+                <ul class="icon-list">
+                    <li>Computer sperren (Windows: Win+L, Mac: Ctrl+Cmd+Q)</li>
+                    <li>Dokumente wegschließen</li>
+                    <li>Keine vertraulichen Informationen sichtbar lassen</li>
+                    <li>Bildschirm so positionieren, dass Unbefugte nicht mitlesen</li>
+                </ul>
+            </div>
+            
+            <h3>5.2 Bildschirmsperre</h3>
+            <div class="code-block">
+Windows: <strong>Win + L</strong>
+Mac: <strong>Ctrl + Cmd + Q</strong>
+            </div>
+            <p><strong>Pflicht:</strong> Automatische Bildschirmsperre nach 5-10 Minuten aktivieren!</p>
+            
+            <h3>5.3 Mobile Geräte</h3>
+            <ul class="icon-list">
+                <li>Geräteverschlüsselung aktivieren</li>
+                <li>Starkes Passwort/PIN/Biometrie</li>
+                <li>Automatische Sperre nach Inaktivität</li>
+                <li>Nur genehmigte Apps installieren</li>
+                <li>Regelmäßige Updates</li>
+                <li><strong>Bei Verlust sofort melden!</strong></li>
+            </ul>
+            
+            <div class="highlight-box danger">
+                <h4>USB-Sticks</h4>
+                <ul class="icon-list cross">
+                    <li>Fremde USB-Sticks NIEMALS am Firmen-PC nutzen!</li>
+                    <li>Private USB-Sticks nur mit Genehmigung</li>
+                </ul>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="prevModule()">← Zurück</button>
+                <button class="btn-primary" onclick="nextModule()">Weiter zu Modul 6 →</button>
+            </div>
+        </div>
+
+        <!-- Modul 6: Datenschutz -->
+        <div class="module" id="module6">
+            <h2>Modul 6: Datenschutz und Vertraulichkeit</h2>
+            
+            <h3>6.1 Klassifizierung von Informationen</h3>
+            
+            <table class="comparison-table">
+                <tr>
+                    <th>Stufe</th>
+                    <th>Bedeutung</th>
+                    <th>Beispiel</th>
+                </tr>
+                <tr>
+                    <td><strong>Öffentlich</strong></td>
+                    <td>Kann veröffentlicht werden</td>
+                    <td>Pressemitteilungen</td>
+                </tr>
+                <tr>
+                    <td><strong>Intern</strong></td>
+                    <td>Nur für Mitarbeiter</td>
+                    <td>Interne Newsletter</td>
+                </tr>
+                <tr>
+                    <td><strong>Vertraulich</strong></td>
+                    <td>Begrenzte Weitergabe</td>
+                    <td>Projektpläne</td>
+                </tr>
+                <tr>
+                    <td><strong>Streng vertraulich</strong></td>
+                    <td>Höchste Schutzstufe</td>
+                    <td>Geschäftsgeheimnisse, Kundendaten</td>
+                </tr>
+            </table>
+            
+            <h3>6.2 Need-to-know-Prinzip</h3>
+            <div class="highlight-box">
+                <p><strong>Zugriff nur für Personen, die die Information zur Aufgabenerfüllung benötigen!</strong></p>
+            </div>
+            
+            <div class="highlight-box danger">
+                <h4>VERBOTEN:</h4>
+                <ul class="icon-list cross">
+                    <li>Cloud-Speicher ohne Freigabe (Dropbox, Google Drive privat)</li>
+                    <li>Weitergabe an Dritte ohne Vertraulichkeitsvereinbarung</li>
+                    <li>Gespräche über vertrauliche Themen in öffentlichen Bereichen</li>
+                    <li>Entsorgung in normalen Papierkörben (Aktenvernichter nutzen!)</li>
+                </ul>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="prevModule()">← Zurück</button>
+                <button class="btn-primary" onclick="nextModule()">Weiter zu Modul 7 →</button>
+            </div>
+        </div>
+
+        <!-- Modul 7: Internet -->
+        <div class="module" id="module7">
+            <h2>Modul 7: Sichere Internetnutzung</h2>
+            
+            <h3>7.1 Sichere Websites erkennen</h3>
+            <ul class="icon-list">
+                <li>HTTPS statt HTTP (Schloss-Symbol im Browser)</li>
+                <li>Korrekte URL (auf Tippfehler achten: ammaz0n.com)</li>
+                <li>Gültiges SSL-Zertifikat</li>
+            </ul>
+            
+            <div class="highlight-box warning">
+                <h4>Warnsignale:</h4>
+                <ul>
+                    <li>Browser-Warnung vor unsicherer Seite</li>
+                    <li>Aufforderung, Sicherheitszertifikat zu akzeptieren</li>
+                    <li>Ungewöhnliche Pop-ups</li>
+                </ul>
+            </div>
+            
+            <h3>7.2 Downloads</h3>
+            <p><strong>Grundregel:</strong> Nur aus vertrauenswürdigen Quellen!</p>
+            
+            <div class="highlight-box danger">
+                <h4>VERBOTEN:</h4>
+                <ul class="icon-list cross">
+                    <li>Raubkopien</li>
+                    <li>Software aus unbekannten Quellen</li>
+                    <li>Crack-Programme</li>
+                    <li>Installation nicht genehmigter Software</li>
+                </ul>
+            </div>
+            
+            <h3>7.3 Social Media</h3>
+            <div class="highlight-box">
+                <p><strong>Grundregel:</strong> Was Sie nicht öffentlich auf dem Marktplatz rufen würden, gehört nicht ins Internet!</p>
+                <ul style="margin-top: 1rem;">
+                    <li>Keine Veröffentlichung von Firmeninformationen</li>
+                    <li>Keine Fotos aus dem Büro (können Vertrauliches zeigen)</li>
+                    <li>Keine Diskussionen über Projekte oder Kunden</li>
+                </ul>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="prevModule()">← Zurück</button>
+                <button class="btn-primary" onclick="nextModule()">Weiter zu Modul 8 →</button>
+            </div>
+        </div>
+
+        <!-- Modul 8: Social Engineering -->
+        <div class="module" id="module8">
+            <h2>Modul 8: Besucher und Social Engineering</h2>
+            
+            <h3>8.1 Besuchermanagement</h3>
+            <ul class="icon-list">
+                <li>Besucher am Empfang anmelden</li>
+                <li>Besucherausweise ausgeben</li>
+                <li>Besucher nicht unbeaufsichtigt lassen</li>
+                <li>Begleitung in Sicherheitsbereichen</li>
+            </ul>
+            
+            <h3>8.2 Social Engineering</h3>
+            <p><strong>Definition:</strong> Manipulation von Menschen, um an vertrauliche Informationen zu gelangen.</p>
+            
+            <div class="highlight-box warning">
+                <h4>Typische Maschen:</h4>
+                <ul>
+                    <li><strong>Pretexting:</strong> "Ich bin vom IT-Support, geben Sie mir Ihr Passwort"</li>
+                    <li><strong>Dringlichkeit:</strong> "Der Chef braucht SOFORT die Kundendaten"</li>
+                    <li><strong>Hilfsbereitschaft:</strong> "Können Sie mich kurz reinlassen? Habe meinen Ausweis vergessen"</li>
+                    <li><strong>Autorität:</strong> "Ich bin von der Geschäftsleitung..."</li>
+                </ul>
+            </div>
+            
+            <div class="highlight-box success">
+                <h4>Schutzmaßnahmen:</h4>
+                <ul class="icon-list">
+                    <li>Gesundes Misstrauen</li>
+                    <li>Identität überprüfen (Rückruf bei bekannter Nummer)</li>
+                    <li>Nicht unter Druck setzen lassen</li>
+                    <li>Keine vertraulichen Informationen am Telefon</li>
+                </ul>
+            </div>
+            
+            <h3>8.3 Tailgating</h3>
+            <p><strong>Definition:</strong> Unbefugtes Folgen durch gesicherte Türen.</p>
+            <p><strong>Prävention:</strong> Tür hinter sich schließen, höflich aber bestimmt: "Bitte melden Sie sich am Empfang"</p>
+            
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="prevModule()">← Zurück</button>
+                <button class="btn-primary" onclick="nextModule()">Weiter zu Modul 9 →</button>
+            </div>
+        </div>
+
+        <!-- Modul 9: Sicherheitsvorfälle -->
+        <div class="module" id="module9">
+            <h2>Modul 9: Umgang mit Sicherheitsvorfällen</h2>
+            
+            <h3>9.1 Warnsignale erkennen</h3>
+            <div class="highlight-box warning">
+                <ul>
+                    <li>Computer wird plötzlich langsam</li>
+                    <li>Unerwartete Pop-ups</li>
+                    <li>Programme starten von selbst</li>
+                    <li>Dateien sind verschlüsselt (Ransomware!)</li>
+                    <li>Unbekannte E-Mails in "Gesendet"</li>
+                </ul>
+            </div>
+            
+            <h3>9.2 Bei Verdacht auf Malware:</h3>
+            <div class="highlight-box danger">
+                <ol>
+                    <li>Computer <strong>NICHT</strong> ausschalten</li>
+                    <li>Vom Netzwerk trennen (LAN-Kabel ziehen, WLAN aus)</li>
+                    <li><strong>Sofort IT-Abteilung informieren</strong></li>
+                    <li>Keine eigenen "Rettungsversuche"</li>
+                </ol>
+            </div>
+            
+            <h3>9.3 Meldepflicht</h3>
+            <p><strong>JEDER Verdacht muss SOFORT gemeldet werden!</strong></p>
+            
+            <div class="highlight-box success">
+                <h4>Wichtig: Keine Schuldzuweisung!</h4>
+                <p>Fehler passieren! Wichtiger als Schuldzuweisung ist schnelles Handeln.</p>
+                <ul class="icon-list">
+                    <li>Offene Fehlerkultur</li>
+                    <li>Meldung wird nicht sanktioniert</li>
+                    <li>Verschweigen kann schwerwiegende Folgen haben</li>
+                    <li>Je früher gemeldet, desto besser der Schutz</li>
+                </ul>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="prevModule()">← Zurück</button>
+                <button class="btn-primary" onclick="nextModule()">Weiter zu Modul 10 →</button>
+            </div>
+        </div>
+
+        <!-- Modul 10: Homeoffice -->
+        <div class="module" id="module10">
+            <h2>Modul 10: Homeoffice und Remote-Arbeit</h2>
+            
+            <h3>10.1 Sicheres Arbeiten von zu Hause</h3>
+            <ul class="icon-list">
+                <li>Nur genehmigte Geräte verwenden</li>
+                <li>Sicheres Heimnetzwerk (WLAN-Verschlüsselung WPA3)</li>
+                <li>Separater Arbeitsbereich, wenn möglich</li>
+                <li>Keine Einsicht für Familienmitglieder auf vertrauliche Informationen</li>
+                <li>VPN-Verbindung für Zugriff auf Firmennetzwerk</li>
+            </ul>
+            
+            <h3>10.2 Videokonferenzen</h3>
+            <ul class="icon-list">
+                <li>Nur genehmigte Tools nutzen (Zoom, Teams, etc.)</li>
+                <li>Warteraum-Funktion aktivieren</li>
+                <li>Meeting-Passwörter verwenden</li>
+                <li>Bildschirmfreigabe kontrollieren</li>
+                <li>Hintergrund neutral oder unscharf</li>
+            </ul>
+            
+            <h3>10.3 Öffentliche Orte (Café, Zug, Flughafen)</h3>
+            <div class="highlight-box warning">
+                <h4>Besondere Vorsicht:</h4>
+                <ul>
+                    <li>Sichtschutzfolie verwenden</li>
+                    <li>Keine vertraulichen Telefonate</li>
+                    <li>Öffentliches WLAN nur mit VPN</li>
+                    <li>Geräte nie unbeaufsichtigt lassen</li>
+                    <li>Vorsicht vor "Schultersurfing"</li>
+                </ul>
+            </div>
+            
+            <div class="highlight-box success" style="text-align: center; margin-top: 2rem;">
+                <h3>🎓 Schulung abgeschlossen!</h3>
+                <p>Sie haben alle 10 Module durchgearbeitet.</p>
+                <p>Jetzt folgt der <strong>Abschlusstest mit 33 Fragen</strong>.</p>
+                <p><strong>Bestehensgrenze: 80% (27 richtige Antworten)</strong></p>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="prevModule()">← Zurück</button>
+                <button class="btn-primary" onclick="nextModule()">Zum Abschlusstest →</button>
+            </div>
+        </div>
+
+        <!-- Modul 11: Quiz -->
+        <div class="module" id="module11">
+            <h2>📝 Abschlusstest</h2>
+            <p>Beantworten Sie die folgenden 33 Fragen. Sie benötigen mindestens <strong>27 richtige Antworten (80%)</strong> zum Bestehen.</p>
+            
+            <!-- Fragen 1-3: Modul 1 -->
+            <h3 style="margin-top: 2rem;">Teil 1: Grundlagen</h3>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 1: Was bedeutet "Vertraulichkeit"?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Informationen müssen immer verfügbar sein</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Nur autorisierte Personen dürfen Zugriff haben</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Informationen dürfen nicht verändert werden</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Alle Mitarbeiter können auf alle Daten zugreifen</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 2: Welche drei Schutzziele verfolgt die Informationssicherheit?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Geschwindigkeit, Effizienz, Qualität</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Vertraulichkeit, Integrität, Verfügbarkeit</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Geheimhaltung, Datenschutz, Sicherheit</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Backup, Verschlüsselung, Virenschutz</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 3: Ein Kollege bittet Sie um Ihr Passwort. Was tun Sie?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Gebe das Passwort weiter, um zu helfen</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Lehne ab und biete an, die Datei selbst bereitzustellen</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Gebe das Passwort nur mündlich</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Frage zuerst den Vorgesetzten</div>
+                </div>
+            </div>
+            
+            <!-- Fragen 4-6: Modul 2 -->
+            <h3 style="margin-top: 2rem;">Teil 2: Verantwortung</h3>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 4: Jemand hat versucht, auf Ihr Konto zuzugreifen. Was tun Sie?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Ignoriere es, wenn der Versuch fehlgeschlagen ist</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Melde den Vorfall sofort der IT-Abteilung</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Ändere nur mein Passwort</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Warte ab, ob es wieder passiert</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="d">
+                <h3>Frage 5: Wer ist für Informationssicherheit verantwortlich?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Nur die IT-Abteilung</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Nur die Geschäftsleitung</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Nur der Datenschutzbeauftragte</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Jeder einzelne Mitarbeiter</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="c">
+                <h3>Frage 6: Sie finden einen USB-Stick im Besprechungsraum. Was tun Sie?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Stecke ihn in meinen Computer, um den Besitzer zu finden</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Nehme ihn mit nach Hause</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Gebe ihn bei der IT-Abteilung ab</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Werfe ihn in den Müll</div>
+                </div>
+            </div>
+            
+            <!-- Fragen 7-10: Modul 3 -->
+            <h3 style="margin-top: 2rem;">Teil 3: Passwörter</h3>
+            
+            <div class="quiz-question" data-correct="c">
+                <h3>Frage 7: Welches ist das sicherste Passwort?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Geburtstag2024</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Passwort123!</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Kf7$mPq2&xL9#wRt</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) MeinName2024</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="c">
+                <h3>Frage 8: Der IT-Support fragt nach Ihrem neuen Passwort. Was tun Sie?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Teile das neue Passwort mit</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Sende es per E-Mail</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Teile NIEMALS mein Passwort - auch nicht mit dem IT-Support</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Sage es nur am Telefon</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 9: Was ist Mehr-Faktor-Authentisierung?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Mehrere Passwörter hintereinander eingeben</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Kombination aus Passwort und zusätzlichem Faktor (z.B. SMS-Code)</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Passwort mit vielen Sonderzeichen</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Passwort und Benutzername</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="a">
+                <h3>Frage 10: Dürfen Sie Passwörter in einer Excel-Datei speichern?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Nein, niemals</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Ja, wenn die Datei versteckt ist</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Ja, wenn sie passwortgeschützt ist</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Nur private Passwörter</div>
+                </div>
+            </div>
+            
+            <!-- Fragen 11-13: Modul 4 -->
+            <h3 style="margin-top: 2rem;">Teil 4: Phishing</h3>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 11: "Ihre Bank" fordert per E-Mail Ihre Zugangsdaten. Was tun Sie?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Klicke auf den Link und gebe die Daten ein</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Lösche die E-Mail bzw. melde sie als Phishing</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Antworte auf die E-Mail</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Rufe die Nummer in der E-Mail an</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="a">
+                <h3>Frage 12: Was ist ein Warnsignal für Phishing?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Dringende Aufforderung zum Handeln</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Professionelles Layout</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Bekannter Absender</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Signierte E-Mail</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 13: Der "Geschäftsführer" braucht dringend iTunes-Gutscheine per E-Mail. Was tun Sie?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Kaufe die Gutscheine sofort</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Verifiziere die Anfrage telefonisch beim Geschäftsführer</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Frage per E-Mail nach</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Bitte einen Kollegen, die Gutscheine zu kaufen</div>
+                </div>
+            </div>
+            
+            <!-- Fragen 14-17: Modul 5 -->
+            <h3 style="margin-top: 2rem;">Teil 5: Arbeitsplatz</h3>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 14: Sie gehen zur Kaffeemaschine. Was tun Sie mit Ihrem Computer?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Lasse ihn eingeloggt laufen</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Sperre den Bildschirm (Win+L)</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Fahre ihn herunter</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Bitte einen Kollegen aufzupassen</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="c">
+                <h3>Frage 15: Was gehört NICHT zur Clean Desk Policy?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Dokumente wegschließen</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Bildschirm sperren</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Tastatur abdecken</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Vertrauliche Notizen entfernen</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 16: Ihr Laptop wurde gestohlen. Was tun Sie?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Warte ab, ob er wieder auftaucht</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Melde den Diebstahl sofort der IT und dem Vorgesetzten</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Kaufe einen neuen Laptop</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Ändere nur mein Passwort</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="a">
+                <h3>Frage 17: Dürfen Sie private USB-Sticks am Firmen-PC nutzen?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Nein, nur genehmigte Unternehmens-Datenträger</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Ja, wenn sie virenfrei sind</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Ja, für private Daten</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Nur mit Erlaubnis des Kollegen</div>
+                </div>
+            </div>
+            
+            <!-- Fragen 18-20: Modul 6 -->
+            <h3 style="margin-top: 2rem;">Teil 6: Datenschutz</h3>
+            
+            <div class="quiz-question" data-correct="c">
+                <h3>Frage 18: Sie möchten eine Kundenliste mit nach Hause nehmen. Was tun Sie?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Kopiere sie auf meinen privaten USB-Stick</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Sende sie an meine private E-Mail</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Hole Genehmigung ein und nutze verschlüsselte Unternehmens-Geräte</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Mache ein Foto mit dem Smartphone</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 19: Wie entsorgen Sie vertrauliche Dokumente?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) In den normalen Papierkorb</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Im Aktenvernichter (mind. Stufe P-4)</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Mit nach Hause nehmen</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Im Altpapier-Container</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 20: Was bedeutet "Need-to-know"-Prinzip?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Jeder darf alles wissen</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Zugriff nur für Personen, die die Information zur Aufgabenerfüllung benötigen</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Nur die Geschäftsleitung darf Informationen weitergeben</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Informationen dürfen nicht geteilt werden</div>
+                </div>
+            </div>
+            
+            <!-- Fragen 21-23: Modul 7 -->
+            <h3 style="margin-top: 2rem;">Teil 7: Internet</h3>
+            
+            <div class="quiz-question" data-correct="c">
+                <h3>Frage 21: Sie benötigen eine Bildbearbeitungssoftware. Was tun Sie?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Lade eine Raubkopie herunter</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Installiere von einer beliebigen Website</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Stelle einen Antrag bei der IT-Abteilung</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Nutze meine private Lizenz auf dem Firmen-PC</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 22: Woran erkennen Sie eine sichere Website?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Schönes Design</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) HTTPS und Schloss-Symbol</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Viele Besucher</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Werbebanner</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="c">
+                <h3>Frage 23: Dürfen Sie Projektdetails auf LinkedIn teilen?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Ja, zur Eigenwerbung</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Ja, wenn keine Namen genannt werden</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Nur mit ausdrücklicher Genehmigung</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Nur auf privaten Accounts</div>
+                </div>
+            </div>
+            
+            <!-- Fragen 24-26: Modul 8 -->
+            <h3 style="margin-top: 2rem;">Teil 8: Social Engineering</h3>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 24: Ein "IT-Mitarbeiter" ruft an und fordert Ihr Passwort. Was tun Sie?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Gebe das Passwort am Telefon</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Verweigere die Herausgabe und melde den Vorfall</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Frage nach seiner Durchwahl</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Gebe nur einen Hinweis auf das Passwort</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 25: Eine fremde Person ohne Ausweis läuft durch das Büro. Was tun Sie?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Ignoriere es</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Spreche die Person höflich an oder informiere den Sicherheitsdienst</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Folge der Person heimlich</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Rufe sofort die Polizei</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 26: Jemand bittet Sie, die Tür aufzuhalten (Ausweis vergessen). Was tun Sie?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Halte die Tür auf, um höflich zu sein</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Bitte die Person, sich am Empfang anzumelden</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Lasse die Person rein, wenn sie sympathisch wirkt</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Frage nach dem Namen und lasse sie rein</div>
+                </div>
+            </div>
+            
+            <!-- Fragen 27-30: Modul 9 -->
+            <h3 style="margin-top: 2rem;">Teil 9: Sicherheitsvorfälle</h3>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 27: Sie vermuten Malware auf Ihrem Computer. Was tun Sie zuerst?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Schalte den Computer aus</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Trenne vom Netzwerk und informiere sofort die IT</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Scanne mit Antivirus-Programm</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Warte ab, was passiert</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="c">
+                <h3>Frage 28: Sie haben eine vertrauliche Kundenliste an die falsche Person gemailt. Was tun Sie?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Hoffe, dass es niemand bemerkt</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Bitte den Empfänger, die E-Mail zu löschen</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Melde den Vorfall sofort der IT und dem Vorgesetzten</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Sende eine Entschuldigungs-E-Mail</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 29: Warum ist schnelle Meldung von Sicherheitsvorfällen wichtig?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Um Schuldige zu finden</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Um Schaden zu begrenzen und schnell reagieren zu können</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Um Statistiken zu führen</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Ist nicht wichtig</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 30: Ihr Firmen-Laptop wurde gestohlen (ohne wichtige Daten). Müssen Sie melden?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Nein, da keine wichtigen Daten drauf waren</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Ja, jeder Geräteverlust muss gemeldet werden</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Nur wenn vertrauliche Daten betroffen sind</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Nur der Polizei, nicht dem Unternehmen</div>
+                </div>
+            </div>
+            
+            <!-- Fragen 31-33: Modul 10 -->
+            <h3 style="margin-top: 2rem;">Teil 10: Homeoffice</h3>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 31: Dürfen Sie im Homeoffice Ihren privaten PC nutzen?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Ja, das ist praktischer</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Nein, nur genehmigte Firmengeräte</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Nur wenn ich Antivirus installiert habe</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Nur für E-Mails</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="c">
+                <h3>Frage 32: Sie arbeiten im Café und müssen kurz zur Toilette. Was tun Sie?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Lasse den Laptop am Tisch</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Bitte den Nachbarn aufzupassen</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Nehme ihn mit oder packe ihn weg</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Sperre nur den Bildschirm</div>
+                </div>
+            </div>
+            
+            <div class="quiz-question" data-correct="b">
+                <h3>Frage 33: Wie verbinden Sie sich sicher mit dem Firmennetzwerk von zu Hause?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="a">A) Direkte Internetverbindung reicht</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="b">B) Über VPN-Verbindung</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="c">C) Über Fernwartungssoftware</div>
+                    <div class="quiz-option" onclick="selectOption(this)" data-value="d">D) Über Teamviewer</div>
+                </div>
+            </div>
+            
+            <button class="btn-primary" onclick="submitQuiz()" style="width: 100%; padding: 1rem; font-size: 1.1rem; margin-top: 2rem;">
+                Test auswerten
+            </button>
+        </div>
+
+        <!-- Modul 12: Ergebnis -->
+        <div class="module" id="module12">
+            <div class="result-container">
+                <div id="resultIcon" style="font-size: 5rem;">🔒</div>
+                <h2 id="resultTitle">Ergebnis</h2>
+                <div id="resultScore" class="result-score">0/33</div>
+                <p id="resultText"></p>
+                <div id="resultActions" style="margin-top: 2rem;"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding: 2rem; color: #718096; border-top: 1px solid #E2E8F0; margin-top: 2rem;">
+        <p>© 2026 QM-Dienstleistungen | Holger Grosser | <a href="https://qm-guru.de" style="color: var(--primary);">qm-guru.de</a></p>
+        <p style="font-size: 0.85rem;">Erstellt: QM Elfe · Freigabe: QM Guru</p>
+    </footer>
+
+    <script>
+        let currentModule = 0;
+        let userData = {};
+        let quizAnswers = {};
+        const totalModules = 12;
+        const totalLearningModules = 10;
+        const totalQuestions = 33;
+        const passingScore = 27; // 80%
+
+        function updateProgress() {
+            const progress = currentModule === 0 ? 0 : (currentModule / totalModules) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            if (currentModule === 0) {
+                document.getElementById('progressText').textContent = 'Registrierung';
+            } else if (currentModule <= totalLearningModules) {
+                document.getElementById('progressText').textContent = `Modul ${currentModule} von ${totalLearningModules}`;
+            } else if (currentModule === 11) {
+                document.getElementById('progressText').textContent = 'Abschlusstest (33 Fragen)';
+            } else {
+                document.getElementById('progressText').textContent = 'Ergebnis';
+            }
+        }
+
+        function showModule(index) {
+            document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+            document.getElementById('module' + index).classList.add('active');
+            currentModule = index;
+            updateProgress();
+            window.scrollTo(0, 0);
+        }
+
+        function startCourse() {
+            const vorname = document.getElementById('vorname').value.trim();
+            const nachname = document.getElementById('nachname').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const firma = document.getElementById('firma').value.trim();
+
+            if (!vorname || !nachname || !email) {
+                alert('Bitte füllen Sie alle Pflichtfelder aus.');
+                return;
+            }
+            if (!email.includes('@')) {
+                alert('Bitte geben Sie eine gültige E-Mail-Adresse ein.');
+                return;
+            }
+
+            userData = { name: vorname + ' ' + nachname, email: email, firma: firma };
+            showModule(1);
+        }
+
+        function nextModule() {
+            if (currentModule < totalModules) showModule(currentModule + 1);
+        }
+
+        function prevModule() {
+            if (currentModule > 0) showModule(currentModule - 1);
+        }
+
+        function selectOption(element) {
+            const question = element.closest('.quiz-question');
+            question.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            const questionIndex = Array.from(document.querySelectorAll('.quiz-question')).indexOf(question);
+            quizAnswers[questionIndex] = element.dataset.value;
+        }
+
+        function submitQuiz() {
+            const questions = document.querySelectorAll('.quiz-question');
+            let score = 0;
+            let allAnswered = true;
+
+            questions.forEach((q, index) => {
+                if (!quizAnswers[index]) allAnswered = false;
+            });
+
+            if (!allAnswered) {
+                alert('Bitte beantworten Sie alle 33 Fragen.');
+                return;
+            }
+
+            questions.forEach((q, index) => {
+                const correct = q.dataset.correct;
+                const selected = quizAnswers[index];
+                
+                q.querySelectorAll('.quiz-option').forEach(opt => {
+                    if (opt.dataset.value === correct) opt.classList.add('correct');
+                    else if (opt.dataset.value === selected && selected !== correct) opt.classList.add('incorrect');
+                });
+
+                if (selected === correct) score++;
+            });
+
+            showResult(score, totalQuestions);
+        }
+
+        function showResult(score, total) {
+            const passed = score >= passingScore;
+            const percentage = Math.round((score / total) * 100);
+
+            document.getElementById('resultIcon').textContent = passed ? '🎓' : '😔';
+            document.getElementById('resultTitle').textContent = passed ? 'Herzlichen Glückwunsch!' : 'Leider nicht bestanden';
+            document.getElementById('resultScore').textContent = score + '/' + total;
+            document.getElementById('resultScore').className = 'result-score ' + (passed ? 'result-passed' : 'result-failed');
+            document.getElementById('resultText').textContent = passed 
+                ? `Sie haben ${percentage}% erreicht und die Schulung erfolgreich abgeschlossen!`
+                : `Sie haben ${percentage}% erreicht. Zum Bestehen sind 80% (27 richtige Antworten) erforderlich.`;
+
+            let actionsHTML = '';
+            if (passed) {
+                actionsHTML = `
+                    <button class="btn-primary" onclick="downloadCertificate(${score}, ${total})" style="padding: 1rem 2rem;">
+                        Zertifikat anfordern
+                    </button>
+                    <p style="margin-top: 1rem; color: #718096;">Das Zertifikat wird per E-Mail an ${userData.email} gesendet.</p>
+                `;
+            } else {
+                actionsHTML = `
+                    <button class="btn-primary" onclick="retryQuiz()" style="padding: 1rem 2rem; margin-right: 1rem;">
+                        Test wiederholen
+                    </button>
+                    <button class="btn-secondary" onclick="showModule(1)" style="padding: 1rem 2rem;">
+                        Schulung wiederholen
+                    </button>
+                `;
+            }
+            document.getElementById('resultActions').innerHTML = actionsHTML;
+            showModule(12);
+
+            if (passed) sendCertificateRequest(score, total, percentage);
+        }
+
+        function retryQuiz() {
+            quizAnswers = {};
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            showModule(11);
+        }
+
+        const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzZL7NWEqy8HQgxb935hXa2Rx1EhVaklbaGXt-KvD4bo0dRi8KUFw-GIcwLETQU2iyKbw/exec';
+
+        function sendCertificateRequest(score, total, percentage) {
+            const data = {
+                name: userData.name,
+                email: userData.email,
+                firma: userData.firma || '',
+                score: score,
+                totalQuestions: total,
+                percentage: percentage,
+                answers: Object.values(quizAnswers),
+                timestamp: new Date().toISOString()
+            };
+
+            if (WEBAPP_URL === 'WEBAPP_URL_HIER_EINTRAGEN') {
+                console.log('WebApp URL nicht konfiguriert:', data);
+                return;
+            }
+
+            fetch(WEBAPP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }).then(() => console.log('Zertifikat-Anfrage gesendet'))
+              .catch(error => console.error('Fehler:', error));
+        }
+
+        function downloadCertificate(score, total) {
+            alert(`Ihr Zertifikat wird an ${userData.email} gesendet.\n\nName: ${userData.name}\nErgebnis: ${score}/${total} (${Math.round(score/total*100)}%)`);
+        }
+
+        updateProgress();
+    </script>
+</body>
+</html>
