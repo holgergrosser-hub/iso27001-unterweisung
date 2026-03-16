@@ -1461,8 +1461,7 @@ Mac: <strong>Ctrl + Cmd + Q</strong>
             fetch(WEBAPP_URL, {
                 method: 'POST',
                 mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
+                             body: JSON.stringify(data)
             }).then(() => console.log('Zertifikat-Anfrage gesendet'))
               .catch(error => console.error('Fehler:', error));
         }
